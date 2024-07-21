@@ -33,6 +33,10 @@ namespace SpacedRepetitionTrainer
 
         public List<Word> Words { get;  set; }
         public string Description { get; set; }
+        public string Name
+        {
+            get { return _setName; }
+        }
 
         private string SetName {  
             get { return _setName; }
@@ -93,8 +97,7 @@ namespace SpacedRepetitionTrainer
             VocabularySet? loadedSet = JsonSerializer.Deserialize<VocabularySet>(jsonString);
 
             if (loadedSet != null)
-            {
-                this.SetName = loadedSet.SetName;
+            {                
                 this.Words = loadedSet.Words;
                 this.Description = loadedSet.Description;
             }

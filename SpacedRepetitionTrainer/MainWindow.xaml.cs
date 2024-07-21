@@ -29,21 +29,20 @@ namespace SpacedRepetitionTrainer
         private void InitLanguageComponents()
         {
             _languageGrid = new LanguageGrid();
+            _languageGrid.TileClicked += LanguageGrid_TileClicked;
             ContentPanel.Child = _languageGrid;
+        }
 
-            /** DEBUG
-            VocabularySet set = new VocabularySet("English");
-            set.Description = "My English dirty vocabularies";
+        // is called if the user clicked on a language tile in the Main screen
+        private void LanguageGrid_TileClicked(object? sender, string language)
+        {
+            InitLanguagePack(language);
+            _languageGrid.TileClicked -= LanguageGrid_TileClicked;
+        }
 
-            Word w1 = new Word { Level = 1, Timestamp = 0, Term = "fuck", Translation = new string[] { "ficken", "scheisse", "beschissen" } };
-            Word w2 = new Word { Level = 1, Timestamp = 0, Term = "suck", Translation = new string[] { "saugen", "lutschen" } };
-            Word w3 = new Word { Level = 1, Timestamp = 0, Term = "servant", Translation = new string[] { "Diener" } };
-
-            set.Add(w1);
-            set.Add(w2);
-            set.Add(w3);
-            set.Save();
-            */
+        private void InitLanguagePack(string language)
+        {
+            ContentPanel.Child = null;
         }
     }
 }
