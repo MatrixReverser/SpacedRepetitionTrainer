@@ -16,9 +16,18 @@ namespace SpacedRepetitionTrainer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private LanguageGrid _languageGrid;
+
         public MainWindow()
         {
-            InitializeComponent();          
+            InitializeComponent();
+            InitLanguageComponents();
+        }
+
+        private void InitLanguageComponents()
+        {
+            _languageGrid = new LanguageGrid();
+            ContentPanel.Child = _languageGrid;
         }
     }
 }

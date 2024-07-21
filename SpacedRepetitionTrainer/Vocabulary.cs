@@ -27,6 +27,8 @@ namespace SpacedRepetitionTrainer
 
     class VocabularySet
     {
+        public static readonly string DATA_PATH = "SpacedRepetitionTrainer_Data";
+
         private List<Word> _words;
         private string _setName;
 
@@ -48,16 +50,30 @@ namespace SpacedRepetitionTrainer
 
         public void Save()
         {
-            string filename = _setName + ".json";
+            string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string jsonDirectory = System.IO.Path.Combine(homeDirectory, VocabularySet.DATA_PATH);
+            Directory.CreateDirectory(jsonDirectory);
+
+            string filename = System.IO.Path.Combine(jsonDirectory, _setName + ".json");
             JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
             string output = JsonSerializer.Serialize(_words, options);
 
             File.WriteAllText(filename, output);
         }
 
+        public int GetWordCount()
+        {
+            Load();
+            return _words.Count;
+        }
+
         public void Load()
         {
-            string filename = _setName + ".json";
+            string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string jsonDirectory = System.IO.Path.Combine(homeDirectory, VocabularySet.DATA_PATH);
+            Directory.CreateDirectory(jsonDirectory);
+
+            string filename = System.IO.Path.Combine(jsonDirectory, _setName + ".json");
 
             // return with an empty word list if language file does not exist
             if (!File.Exists(filename))
