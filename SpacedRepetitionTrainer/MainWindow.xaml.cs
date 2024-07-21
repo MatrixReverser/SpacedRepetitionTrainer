@@ -18,7 +18,7 @@ namespace SpacedRepetitionTrainer
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();          
         }
     }
 }

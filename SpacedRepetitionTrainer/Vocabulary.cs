@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SpacedRepetitionTrainer
@@ -24,11 +27,55 @@ namespace SpacedRepetitionTrainer
 
     class VocabularySet
     {
-        private List<Word> words;
+        private List<Word> _words;
+        private string _setName;
 
-        public VocabularySet()
+        private string SetName {  
+            get { return _setName; }
+            set { _setName = value; }
+        }
+
+        public VocabularySet(string setName)
         {
-            words = new List<Word>();
+            _words = new List<Word>();
+            _setName = setName;
+        }
+
+        public void Add(Word word)
+        {
+            _words.Add(word);
+        }
+
+        public void Save()
+        {
+            string filename = _setName + ".json";
+            JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+            string output = JsonSerializer.Serialize(_words, options);
+
+            File.WriteAllText(filename, output);
+        }
+
+        public void Load()
+        {
+            string filename = _setName + ".json";
+
+            // return with an empty word list if language file does not exist
+            if (!File.Exists(filename))
+            {
+                _words = new List<Word>();
+                return;
+            }
+
+            string jsonString = File.ReadAllText(filename);
+            var words = JsonSerializer.Deserialize<List<Word>>(jsonString);
+
+            if (words == null)
+            {
+                _words= new List<Word>();
+            } else
+            {
+                _words = words;
+            }
         }
     }
 }
