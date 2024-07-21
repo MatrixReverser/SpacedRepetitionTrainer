@@ -45,7 +45,10 @@ namespace SpacedRepetitionTrainer
         private void AddTile(string languageFile)
         {
             string language = Path.GetFileNameWithoutExtension(languageFile);
-            
+            VocabularySet set = new VocabularySet(language);
+            set.Load();
+            int wordCount = set.GetWordCount();
+
             // Erstelle den Border (Rahmen) für das Rechteck
             Border border = new Border
             {
@@ -60,30 +63,44 @@ namespace SpacedRepetitionTrainer
             StackPanel stackPanel = new StackPanel();
 
             // Erstelle und füge die Labels hinzu
-            Label labelName = new Label
+            TextBlock labelName = new TextBlock
             {
-                Content = char.ToUpper(language[0]) + language.Substring(1),
+                Text = char.ToUpper(language[0]) + language.Substring(1),
                 Foreground = Brushes.White,
                 FontSize = 18,
                 FontWeight = FontWeights.Bold
             };
 
-            Label labelFile = new Label
+            TextBlock labelFile = new TextBlock
             {
-                Content = languageFile,
+                Text = "[file: " + languageFile + "]",
                 Foreground = Brushes.LightGray,
-                FontSize = 12
+                FontSize = 12,
+                FontStyle = FontStyles.Italic,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 0, 0, 15)
             };
 
-            Label labelDesc = new Label
+            TextBlock labelDescription = new TextBlock
             {
-                Content = "Words: " + GetWordCount(language),
+                Text = set.Description,
+                Foreground = Brushes.LightGray,
+                FontSize = 12,
+                FontWeight = FontWeights.SemiBold,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 0, 0, 15)
+            };
+
+            TextBlock labelDesc = new TextBlock
+            {
+                Text = "Words: " + wordCount,
                 Foreground = Brushes.LightGray,
                 FontSize = 12
             };
 
             stackPanel.Children.Add(labelName);
             stackPanel.Children.Add(labelFile);
+            stackPanel.Children.Add(labelDescription);
             stackPanel.Children.Add(labelDesc);
 
             // Füge das StackPanel zum Border hinzu
@@ -91,12 +108,6 @@ namespace SpacedRepetitionTrainer
 
             // Füge den Border zum StackPanel des UserControls hinzu
             TileGrid.Children.Add(border);
-        }
-
-        private int GetWordCount(string language)
-        {
-            VocabularySet set = new VocabularySet(language);
-            return set.GetWordCount();
         }
     }
 }
