@@ -31,6 +31,7 @@ namespace SpacedRepetitionTrainer
             _languageGrid = new LanguageGrid();
             _languageGrid.TileClicked += LanguageGrid_TileClicked;
             ContentPanel.Child = _languageGrid;
+            AppTitle.Text = "Vokabel Sets";
         }
 
         // is called if the user clicked on a language tile in the Main screen

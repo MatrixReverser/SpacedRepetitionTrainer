@@ -8,7 +8,8 @@
         Title="Spaced Repetition Trainer" Height="450" Width="800">
     <Grid>
         <!-- Überschrift -->
-        <TextBlock Text="Vocabulary Set"
+        <TextBlock Name="AppTitle"
+                   Text="Vocabulary Set"
                    FontWeight="Bold"
                    Background="#c97000"
                    Foreground="White"
