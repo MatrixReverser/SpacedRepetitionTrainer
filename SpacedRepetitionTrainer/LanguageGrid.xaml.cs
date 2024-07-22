@@ -95,7 +95,7 @@ namespace SpacedRepetitionTrainer
 
             TextBlock labelDesc = new TextBlock
             {
-                Text = "Words: " + wordCount,
+                Text = "Wörter: " + wordCount,
                 Foreground = Brushes.LightGray,
                 FontSize = 12
             };

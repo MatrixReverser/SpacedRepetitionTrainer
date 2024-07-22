@@ -19,6 +19,7 @@ namespace SpacedRepetitionTrainer
     public partial class MainWindow : Window
     {
         private LanguageGrid _languageGrid;
+        private LanguageOverview _languageOverview;
 
         public MainWindow()
         {
@@ -43,7 +44,9 @@ namespace SpacedRepetitionTrainer
 
         private void InitLanguagePack(string language)
         {
-            ContentPanel.Child = null;
+            _languageOverview = new LanguageOverview(language);
+            ContentPanel.Child = _languageOverview;
+            AppTitle.Text = language;
         }
     }
 }
