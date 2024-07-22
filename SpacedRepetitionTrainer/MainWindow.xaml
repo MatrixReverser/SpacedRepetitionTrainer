@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Spaced Repetition Trainer" Height="720" Width="1280">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <!-- Überschrift -->
         <TextBlock Name="AppTitle"
                    Text="Vocabulary Set"
