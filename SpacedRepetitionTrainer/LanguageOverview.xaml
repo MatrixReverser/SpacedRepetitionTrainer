@@ -11,6 +11,36 @@
         <!-- Converter als Ressource definieren -->
         <local:StringArrayToStringConverter x:Key="StringArrayToStringConverter" />
         <local:UnixTimestampToDateConverter x:Key="UnixTimestampToDateConverter" />
+
+        <!-- Stile für die DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="#404040"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="BorderBrush" Value="#D3D3D3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#D3D3D3"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#D3D3D3"/>
+            <Setter Property="RowBackground" Value="DarkGray"/>
+            <Setter Property="AlternatingRowBackground" Value="LightGray"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#c97000"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#d3d3d3"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="3" />
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#D3D3D3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#202020" />
+        </Style>
     </UserControl.Resources>
     
     <DockPanel Background="#303030">
@@ -87,20 +117,20 @@
 
 
             <!-- Stack panel containing all voabularies -->
-            <Grid Background="#303030" DockPanel.Dock="Right">
+            <Grid Background="#404040" DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0">
-                    <DataGrid Name="VocabularyGrid" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" Margin="10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0" Background="#404040">
+                    <DataGrid Name="VocabularyGrid" HeadersVisibility="Column" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" FontSize="14">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Begriff" Binding="{Binding Term}" />
-                            <DataGridTextColumn Header="Bedeutung" Binding="{Binding Translation, Converter={StaticResource StringArrayToStringConverter}}" />
-                            <DataGridTextColumn Header="Level" Binding="{Binding Level}" />
-                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}}" />
+                            <DataGridTextColumn Header="Begriff" Binding="{Binding Term}" Width="350"/>
+                            <DataGridTextColumn Header="Bedeutung" Binding="{Binding Translation, Converter={StaticResource StringArrayToStringConverter}}" Width="350" />
+                            <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="50" />
+                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}}" Width="100" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
