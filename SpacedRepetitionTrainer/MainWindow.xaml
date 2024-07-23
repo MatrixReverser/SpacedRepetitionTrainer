@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpacedRepetitionTrainer"
         mc:Ignorable="d"
-        Title="Spaced Repetition Trainer" Height="450" Width="800">
+        Title="Spaced Repetition Trainer" Height="720" Width="1280">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <!-- Überschrift -->
-        <TextBlock Text="Vocabulary Set"
+        <TextBlock Name="AppTitle"
+                   Text="Vocabulary Set"
                    FontWeight="Bold"
                    Background="#c97000"
                    Foreground="White"

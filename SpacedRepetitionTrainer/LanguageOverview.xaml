@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="SpacedRepetitionTrainer.LanguageOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:local="clr-namespace:SpacedRepetitionTrainer"
+             mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <!-- Converter als Ressource definieren -->
+        <local:StringArrayToStringConverter x:Key="StringArrayToStringConverter" />
+        <local:UnixTimestampToDateConverter x:Key="UnixTimestampToDateConverter" />
+
+        <!-- Stile für die DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="#404040"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="BorderBrush" Value="#D3D3D3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#D3D3D3"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#D3D3D3"/>
+            <Setter Property="RowBackground" Value="DarkGray"/>
+            <Setter Property="AlternatingRowBackground" Value="LightGray"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#c97000"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#d3d3d3"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="3" />
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#D3D3D3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#202020" />
+        </Style>
+    </UserControl.Resources>
+    
+    <DockPanel Background="#303030">
+        <!-- Stack panel for the menu and info items -->
+        <StackPanel DockPanel.Dock="Left" Width="350" Background="#fec592">
+            <TextBlock Name="Description" 
+                       Text="Description" 
+                       Padding="10 10 10 0" 
+                       FontSize="14"
+                       TextWrapping="Wrap"/>
+            <TextBlock Name="WordCount"
+                       Text="WordCount"
+                       Padding="10 10 10 10"
+                       FontSize="14"/>
+
+            <!-- Menu item for going back to langauge selection -->
+            <StackPanel Orientation="Horizontal" Margin="10 20 10 20">
+                <fa:ImageAwesome Icon="Home" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Zurück" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+
+            <!-- Menu item for learning -->
+            <StackPanel Orientation="Horizontal" Margin="10 10 10 10">
+                <fa:ImageAwesome Icon="GraduationCap" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Lernen" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+
+            <!-- menu item for statistcis -->
+            <StackPanel Orientation="Horizontal" Margin="10 0 10 20">
+                <fa:ImageAwesome Icon="BarChart" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Statistik" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+
+            <!-- menu item for import -->
+            <StackPanel Orientation="Horizontal" Margin="10 10 10 10">
+                <fa:ImageAwesome Icon="Download" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Importieren" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+
+            <!-- menu item for export -->
+            <StackPanel Orientation="Horizontal" Margin="10 0 10 20">
+                <fa:ImageAwesome Icon="Upload" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Exportieren" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+
+            <!-- menu item for delete -->
+            <StackPanel Orientation="Horizontal" Margin="10 20 10 20">
+                <fa:ImageAwesome Icon="Remove" Width="30" Height="30" VerticalAlignment="Center" Foreground="#a00000"/>
+                <TextBlock Text="Löschen" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#a00000" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Panel for the vocabulary table and search option -->
+        <DockPanel Background="#202020" Name="contentPanel" HorizontalAlignment="Stretch" >
+            
+            <!-- panel containing the search tools -->
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Name="SearchItem" 
+                         FontSize="20"
+                         FontWeight="DemiBold"
+                         Margin="10" 
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Center"
+                         Grid.Column="0"/>
+                <StackPanel Orientation="Horizontal" Margin="10 20 10 20" Grid.Column="1">
+                    <fa:ImageAwesome Icon="Search" Width="16" Height="16" VerticalAlignment="Center" Foreground="#f0f0f0"/>
+                    <TextBlock Text="Suchen" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#f0f0f0" />
+                </StackPanel>
+            </Grid>
+
+
+            <!-- Stack panel containing all voabularies -->
+            <Grid Background="#404040" DockPanel.Dock="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0" Background="#404040">
+                    <DataGrid Name="VocabularyGrid" HeadersVisibility="Column" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" FontSize="14">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Begriff" Binding="{Binding Term}" Width="350"/>
+                            <DataGridTextColumn Header="Bedeutung" Binding="{Binding Translation, Converter={StaticResource StringArrayToStringConverter}}" Width="350" />
+                            <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="50" />
+                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}}" Width="100" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </Grid>
+        </DockPanel>
+        
+    </DockPanel>
+</UserControl>

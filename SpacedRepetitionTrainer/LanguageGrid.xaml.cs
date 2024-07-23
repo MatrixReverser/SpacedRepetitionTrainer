@@ -20,6 +20,10 @@ namespace SpacedRepetitionTrainer
     /// </summary>
     public partial class LanguageGrid : UserControl
     {
+        public event EventHandler<string>? TileClicked;
+
+        private Dictionary<Border, VocabularySet> _vocSets = new Dictionary<Border, VocabularySet>();
+
         public LanguageGrid()
         {
             InitializeComponent();
@@ -28,8 +32,6 @@ namespace SpacedRepetitionTrainer
 
         private void BuildLanguageGrid()
         {
-            
-
             string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string jsonDirectory = System.IO.Path.Combine(homeDirectory, VocabularySet.DATA_PATH);
             Directory.CreateDirectory(jsonDirectory);
@@ -38,11 +40,11 @@ namespace SpacedRepetitionTrainer
 
             foreach (string languageFile in files) 
             {
-                AddTile(languageFile);
+                AddLanguageTile(languageFile);
             }
         }
 
-        private void AddTile(string languageFile)
+        private void AddLanguageTile(string languageFile)
         {
             string language = Path.GetFileNameWithoutExtension(languageFile);
             VocabularySet set = new VocabularySet(language);
@@ -93,7 +95,7 @@ namespace SpacedRepetitionTrainer
 
             TextBlock labelDesc = new TextBlock
             {
-                Text = "Words: " + wordCount,
+                Text = "Wörter: " + wordCount,
                 Foreground = Brushes.LightGray,
                 FontSize = 12
             };
@@ -108,6 +110,21 @@ namespace SpacedRepetitionTrainer
 
             // Füge den Border zum StackPanel des UserControls hinzu
             TileGrid.Children.Add(border);
+
+            // Event, wenn Benutzer auf Tile klickt
+            _vocSets.Add(border, set);
+            border.MouseDown += Border_MouseDown;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Border? border = sender as Border;
+            if (border != null)
+            {
+                VocabularySet set = _vocSets[border];
+
+                TileClicked?.Invoke(this, set.Name as string);
+            }
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace SpacedRepetitionTrainer
 {
@@ -33,6 +35,10 @@ namespace SpacedRepetitionTrainer
 
         public List<Word> Words { get;  set; }
         public string Description { get; set; }
+        public string Name
+        {
+            get { return _setName; }
+        }
 
         private string SetName {  
             get { return _setName; }
@@ -93,8 +99,7 @@ namespace SpacedRepetitionTrainer
             VocabularySet? loadedSet = JsonSerializer.Deserialize<VocabularySet>(jsonString);
 
             if (loadedSet != null)
-            {
-                this.SetName = loadedSet.SetName;
+            {                
                 this.Words = loadedSet.Words;
                 this.Description = loadedSet.Description;
             }
