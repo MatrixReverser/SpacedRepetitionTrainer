@@ -57,7 +57,7 @@
                        FontSize="14"/>
 
             <!-- Menu item for going back to langauge selection -->
-            <StackPanel Orientation="Horizontal" Margin="10 20 10 20">
+            <StackPanel Orientation="Horizontal" Margin="10 20 10 20" MouseLeftButtonDown="LeftMouseButtonDown_Back" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
                 <fa:ImageAwesome Icon="Home" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
                 <TextBlock Text="Zurück" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
