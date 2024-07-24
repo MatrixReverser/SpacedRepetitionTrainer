@@ -27,6 +27,9 @@ namespace SpacedRepetitionTrainer
             InitLanguageComponents();
         }
 
+        /**
+         * Initializes the home screen with the language grid
+         */
         private void InitLanguageComponents()
         {
             _languageGrid = new LanguageGrid();
@@ -35,18 +38,31 @@ namespace SpacedRepetitionTrainer
             AppTitle.Text = "Vokabel Sets";
         }
 
+        /**
+         * Initializes the screen that handles one language pack
+         */
+        private void InitLanguagePack(string language)
+        {
+            _languageOverview = new LanguageOverview(language);
+            _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
+            ContentPanel.Child = _languageOverview;
+            AppTitle.Text = language;
+        }
+
+        /**
+         * Is called if the user has clicked the back button in the language overiew screen
+         */
+        private void LanguageOverview_HomeScreenRequested(object? sender, string e)
+        {
+            _languageOverview.HomeScreenRequested -= LanguageOverview_HomeScreenRequested;
+            InitLanguageComponents();
+        }
+
         // is called if the user clicked on a language tile in the Main screen
         private void LanguageGrid_TileClicked(object? sender, string language)
         {
             InitLanguagePack(language);
             _languageGrid.TileClicked -= LanguageGrid_TileClicked;
-        }
-
-        private void InitLanguagePack(string language)
-        {
-            _languageOverview = new LanguageOverview(language);
-            ContentPanel.Child = _languageOverview;
-            AppTitle.Text = language;
         }
     }
 }

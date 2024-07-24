@@ -21,6 +21,8 @@ namespace SpacedRepetitionTrainer
     /// </summary>
     public partial class LanguageOverview : UserControl
     {
+        public event EventHandler<string>? HomeScreenRequested;
+
         private string _language;
         private VocabularySet _vocabularySet;
 
@@ -46,6 +48,31 @@ namespace SpacedRepetitionTrainer
         {
             VocabularyGrid.ItemsSource = _vocabularySet.Words;
         }
+
+        /**
+         * Is called if the user clicks the back button
+         */
+        private void LeftMouseButtonDown_Back(object sender, MouseButtonEventArgs args)
+        {
+            HomeScreenRequested?.Invoke(this, string.Empty);
+        }
+
+        /**
+         * Is called if the mouse enters ANY of the panels that represets buttons
+         */
+        private void MouseEnter_General(object sender, MouseEventArgs args)
+        {
+            this.Cursor = Cursors.Hand;
+        }
+
+        /**
+         * Is called if the mouse leaves ANY of the panels that represent buttons
+         */
+        private void MouseLeave_General(object sender, MouseEventArgs args)
+        {
+            this.Cursor = Cursors.Arrow;
+        }
+
     }
 
     public class StringArrayToStringConverter : IValueConverter
@@ -90,6 +117,6 @@ namespace SpacedRepetitionTrainer
                 return new DateTimeOffset(dateTime).ToUnixTimeSeconds();
             }
             return 0L;
-        }
+        }        
     }
 }
