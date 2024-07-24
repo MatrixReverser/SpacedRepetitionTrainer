@@ -7,10 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <UniformGrid x:Name="TileGrid"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Width="Auto"
-                    Height="Auto" />  
+        <ScrollViewer>
+            <UniformGrid x:Name="TileGrid"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Width="Auto"
+                        Height="Auto" />
+        </ScrollViewer>
     </Grid>
 </UserControl>
