@@ -73,8 +73,27 @@ namespace SpacedRepetitionTrainer
             this.Cursor = Cursors.Arrow;
         }
 
+        /**
+         * Is called if the user clicks on delete
+         */
+        private void LeftMouseButtonDown_Delete(object sender, MouseButtonEventArgs args)
+        {
+            string title = "Sprachpaket löschen?";
+            string message = "Möchtest Du das Sprachpaket '" + _language + "' wirklich löschen?\n\nDieser Vorgang kann nicht rückgängig gemacht werden!";
+
+            MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _vocabularySet.Delete();
+                HomeScreenRequested?.Invoke(this, string.Empty);
+            }
+        }
     }
 
+    /** **************************************************************************
+     * HELPER CLASS: converting string array to string and vice versa
+     **************************************************************************** */
     public class StringArrayToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -96,6 +115,9 @@ namespace SpacedRepetitionTrainer
         }
     }
 
+    /** **************************************************************************
+     * HELPER CLASS: converting unix timestamp to date and vice versa
+     **************************************************************************** */
     public class UnixTimestampToDateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

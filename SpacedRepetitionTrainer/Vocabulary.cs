@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace SpacedRepetitionTrainer
         public static readonly string DATA_PATH = "SpacedRepetitionTrainer_Data";
 
         private string _setName;
+        private Boolean _markedForDeletion = false;
 
         public List<Word> Words { get;  set; }
         public string Description { get; set; }
@@ -62,17 +64,28 @@ namespace SpacedRepetitionTrainer
             Words.Add(word);
         }
 
-        public void Save()
+        private string CreateFilename()
         {
             string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string jsonDirectory = System.IO.Path.Combine(homeDirectory, VocabularySet.DATA_PATH);
             Directory.CreateDirectory(jsonDirectory);
 
             string filename = System.IO.Path.Combine(jsonDirectory, _setName + ".json");
-            JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
-            string output = JsonSerializer.Serialize(this /*_words*/, options);
 
-            File.WriteAllText(filename, output);
+            return filename;
+        }
+
+        public void Save()
+        {
+            // must not be saved if set is marked for deletion! Otherwise the set would be recreated!
+            if (!_markedForDeletion)
+            {
+                string filename = CreateFilename();
+                JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+                string output = JsonSerializer.Serialize(this /*_words*/, options);
+
+                File.WriteAllText(filename, output);
+            }
         }
 
         public int GetWordCount()
@@ -82,11 +95,7 @@ namespace SpacedRepetitionTrainer
 
         public void Load()
         {
-            string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string jsonDirectory = System.IO.Path.Combine(homeDirectory, VocabularySet.DATA_PATH);
-            Directory.CreateDirectory(jsonDirectory);
-
-            string filename = System.IO.Path.Combine(jsonDirectory, _setName + ".json");
+            string filename = CreateFilename();
 
             // return with an empty word list if language file does not exist
             if (!File.Exists(filename))
@@ -103,6 +112,12 @@ namespace SpacedRepetitionTrainer
                 this.Words = loadedSet.Words;
                 this.Description = loadedSet.Description;
             }
+        }
+
+        public void Delete()
+        {
+            File.Delete(CreateFilename());
+            _markedForDeletion = true;
         }
     }
 }
