@@ -50,6 +50,14 @@ namespace SpacedRepetitionTrainer
         }
 
         /**
+         * Saves the current vocabulary set
+         */
+        public void SaveCurrentVocabularySet()
+        {
+            _vocabularySet?.Save();
+        }
+
+        /**
          * Is called if the user clicks the back button
          */
         private void LeftMouseButtonDown_Back(object sender, MouseButtonEventArgs args)
@@ -127,7 +135,7 @@ namespace SpacedRepetitionTrainer
                 // Unix timestamp is seconds past epoch
                 DateTime dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).DateTime;
                 // Return only the date part in German format
-                return dateTime.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                return dateTime.ToLocalTime().ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
             return string.Empty;
         }
@@ -135,7 +143,7 @@ namespace SpacedRepetitionTrainer
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is string str && DateTime.TryParseExact(str, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTime))
-            {
+            {   
                 return new DateTimeOffset(dateTime).ToUnixTimeSeconds();
             }
             return 0L;

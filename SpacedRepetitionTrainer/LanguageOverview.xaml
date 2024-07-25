@@ -130,7 +130,7 @@
                             <DataGridTextColumn Header="Begriff" Binding="{Binding Term}" Width="350"/>
                             <DataGridTextColumn Header="Bedeutung" Binding="{Binding Translation, Converter={StaticResource StringArrayToStringConverter}}" Width="350" />
                             <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="50" />
-                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}}" Width="100" />
+                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}, Mode=TwoWay}" Width="100" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>

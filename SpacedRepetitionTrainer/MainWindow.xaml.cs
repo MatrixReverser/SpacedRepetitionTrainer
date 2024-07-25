@@ -54,7 +54,9 @@ namespace SpacedRepetitionTrainer
          */
         private void LanguageOverview_HomeScreenRequested(object? sender, string e)
         {
+            _languageOverview.SaveCurrentVocabularySet();
             _languageOverview.HomeScreenRequested -= LanguageOverview_HomeScreenRequested;
+           
             InitLanguageComponents();
         }
 
