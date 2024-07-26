@@ -25,6 +25,8 @@ namespace SpacedRepetitionTrainer
         {
             InitializeComponent();
             InitLanguageComponents();
+
+            this.Closing += MainWindow_Closing;
         }
 
         /**
@@ -66,5 +68,15 @@ namespace SpacedRepetitionTrainer
             InitLanguagePack(language);
             _languageGrid.TileClicked -= LanguageGrid_TileClicked;
         }
+
+        /**
+         * Application is about to close
+         */
+        private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _languageOverview?.SaveCurrentVocabularySet();
+        }
+
+        
     }
 }
