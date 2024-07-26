@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -35,7 +36,7 @@ namespace SpacedRepetitionTrainer
         private string _setName;
         private Boolean _markedForDeletion = false;
 
-        public List<Word> Words { get;  set; }
+        public ObservableCollection<Word> Words { get;  set; }
         public string Description { get; set; }
         public string Name
         {
@@ -54,7 +55,7 @@ namespace SpacedRepetitionTrainer
 
         public VocabularySet(string setName)
         {
-            Words = new List<Word>();
+            Words = new ObservableCollection<Word>();
             _setName = setName;
             Description = string.Empty;
         }
@@ -100,7 +101,7 @@ namespace SpacedRepetitionTrainer
             // return with an empty word list if language file does not exist
             if (!File.Exists(filename))
             {
-                Words = new List<Word>();
+                Words = new ObservableCollection<Word>();
                 return;
             }
 

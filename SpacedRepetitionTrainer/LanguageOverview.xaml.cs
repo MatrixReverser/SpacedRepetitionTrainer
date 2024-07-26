@@ -50,6 +50,14 @@ namespace SpacedRepetitionTrainer
         }
 
         /**
+         * Saves the current vocabulary set
+         */
+        public void SaveCurrentVocabularySet()
+        {
+            _vocabularySet?.Save();
+        }
+
+        /**
          * Is called if the user clicks the back button
          */
         private void LeftMouseButtonDown_Back(object sender, MouseButtonEventArgs args)
@@ -87,6 +95,24 @@ namespace SpacedRepetitionTrainer
             {
                 _vocabularySet.Delete();
                 HomeScreenRequested?.Invoke(this, string.Empty);
+            }
+        }
+
+        /** 
+         * Is called if the user wants to delete the current row of the data grid
+         */
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var frameworkElement = sender as FrameworkElement;
+            var item = frameworkElement?.DataContext as Word;
+            
+            if (item != null && item is Word)
+            {
+                Word word = (Word)item;
+                if (word.Term != null && word.Term.Length > 0)
+                {
+                    _vocabularySet.Words.Remove(item);
+                }
             }
         }
     }
@@ -127,7 +153,7 @@ namespace SpacedRepetitionTrainer
                 // Unix timestamp is seconds past epoch
                 DateTime dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).DateTime;
                 // Return only the date part in German format
-                return dateTime.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                return dateTime.ToLocalTime().ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
             return string.Empty;
         }
@@ -135,10 +161,31 @@ namespace SpacedRepetitionTrainer
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is string str && DateTime.TryParseExact(str, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTime))
-            {
+            {   
                 return new DateTimeOffset(dateTime).ToUnixTimeSeconds();
             }
             return 0L;
         }        
+    }
+
+    /** *************************************************************************
+     * Controls visibility of the thrash icon for empty rows
+     * ***************************************************************************/
+    public class NullToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.GetType() == CollectionView.NewItemPlaceholder.GetType())
+            {
+                return Visibility.Collapsed;
+            }
+
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

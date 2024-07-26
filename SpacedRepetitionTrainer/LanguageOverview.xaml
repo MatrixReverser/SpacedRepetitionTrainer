@@ -11,6 +11,7 @@
         <!-- Converter als Ressource definieren -->
         <local:StringArrayToStringConverter x:Key="StringArrayToStringConverter" />
         <local:UnixTimestampToDateConverter x:Key="UnixTimestampToDateConverter" />
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
 
         <!-- Stile für die DataGrid -->
         <Style TargetType="DataGrid">
@@ -127,10 +128,20 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0" Background="#404040">
                     <DataGrid Name="VocabularyGrid" HeadersVisibility="Column" AutoGenerateColumns="False" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" FontSize="14">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Begriff" Binding="{Binding Term}" Width="350"/>
+                            <DataGridTextColumn Header="Begriff" Binding="{Binding Term}" Width="300"/>
                             <DataGridTextColumn Header="Bedeutung" Binding="{Binding Translation, Converter={StaticResource StringArrayToStringConverter}}" Width="350" />
                             <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="50" />
-                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}}" Width="100" />
+                            <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp, Converter={StaticResource UnixTimestampToDateConverter}, Mode=TwoWay}" Width="100" />
+                            <DataGridTemplateColumn Header="Löschen" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <fa:ImageAwesome Icon="Trash" Width="15" Height="15" 
+                                         VerticalAlignment="Center" Foreground="#a00000"
+                                         Cursor="Hand" MouseLeftButtonUp="DeleteButton_Click"
+                                         Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
