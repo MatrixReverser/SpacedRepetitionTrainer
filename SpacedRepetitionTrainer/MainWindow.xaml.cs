@@ -20,6 +20,7 @@ namespace SpacedRepetitionTrainer
     {
         private LanguageGrid _languageGrid;
         private LanguageOverview _languageOverview;
+        public NewLanguagePanel _newLanguagePanel;
 
         public MainWindow()
         {
@@ -74,9 +75,62 @@ namespace SpacedRepetitionTrainer
          */
         private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
-            _languageOverview?.SaveCurrentVocabularySet();
+            if (ContentPanel.Child == _languageOverview)
+            {
+                _languageOverview?.SaveCurrentVocabularySet();
+            }
         }
 
         
+        private void NewLanguagePack_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContentPanel.Child == _languageOverview)
+            {
+                _languageOverview.SaveCurrentVocabularySet();
+            }
+
+            _newLanguagePanel = new NewLanguagePanel();
+            ContentPanel.Child = _newLanguagePanel;
+            AppTitle.Text = "Neues Sprachpaket";
+            _newLanguagePanel.DialogClosed += HandleCloseNewLanguageDialog;
+        }
+
+
+        private void HandleCloseNewLanguageDialog(object? sender, bool confirmed)
+        {
+            if (confirmed)
+            {
+                string name = _newLanguagePanel.GetLanguageName();
+                string description = _newLanguagePanel.GetLanguageDescription();
+
+                _languageOverview = new LanguageOverview(name, description);
+                ContentPanel.Child = _languageOverview;
+                _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
+
+                AppTitle.Text = name;
+            }
+            else
+            {
+                // if cancelled, just go back to the home screen
+                _newLanguagePanel.DialogClosed -= HandleCloseNewLanguageDialog;
+                InitLanguageComponents();
+            }
+        }
+
+        /**
+         * Is called if the mouse enters ANY of the panels that represets buttons
+         */
+        private void MouseEnter_General(object sender, MouseEventArgs args)
+        {
+            this.Cursor = Cursors.Hand;
+        }
+
+        /**
+         * Is called if the mouse leaves ANY of the panels that represent buttons
+         */
+        private void MouseLeave_General(object sender, MouseEventArgs args)
+        {
+            this.Cursor = Cursors.Arrow;
+        }
     }
 }

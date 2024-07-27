@@ -26,12 +26,13 @@ namespace SpacedRepetitionTrainer
         private string _language;
         private VocabularySet _vocabularySet;
 
-        public LanguageOverview(string language)
+        public LanguageOverview(string language, string description = "")
         {
             InitializeComponent();
             
-            _language = language;
+            _language = language;            
             _vocabularySet = new VocabularySet(language);
+            _vocabularySet.Description = description;
             _vocabularySet.Load();
 
             InitInfoBlock();

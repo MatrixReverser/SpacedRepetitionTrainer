@@ -59,38 +59,38 @@
 
             <!-- Menu item for going back to langauge selection -->
             <StackPanel Orientation="Horizontal" Margin="10 20 10 20" MouseLeftButtonDown="LeftMouseButtonDown_Back" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
-                <fa:ImageAwesome Icon="Home" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
-                <TextBlock Text="Zurück" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+                <fa:ImageAwesome Icon="Home" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Zurück" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
 
             <!-- Menu item for learning -->
             <StackPanel Orientation="Horizontal" Margin="10 10 10 10">
-                <fa:ImageAwesome Icon="GraduationCap" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
-                <TextBlock Text="Lernen" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+                <fa:ImageAwesome Icon="GraduationCap" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Lernen" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
 
             <!-- menu item for statistcis -->
             <StackPanel Orientation="Horizontal" Margin="10 0 10 20">
-                <fa:ImageAwesome Icon="BarChart" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
-                <TextBlock Text="Statistik" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+                <fa:ImageAwesome Icon="BarChart" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Statistik" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
 
             <!-- menu item for import -->
             <StackPanel Orientation="Horizontal" Margin="10 10 10 10">
-                <fa:ImageAwesome Icon="Download" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
-                <TextBlock Text="Importieren" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+                <fa:ImageAwesome Icon="Download" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Importieren" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
 
             <!-- menu item for export -->
             <StackPanel Orientation="Horizontal" Margin="10 0 10 20">
-                <fa:ImageAwesome Icon="Upload" Width="30" Height="30" VerticalAlignment="Center" Foreground="#202020" />
-                <TextBlock Text="Exportieren" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+                <fa:ImageAwesome Icon="Upload" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Text="Exportieren" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
 
             <!-- menu item for delete -->
             <StackPanel Orientation="Horizontal" Margin="10 20 10 20" MouseLeftButtonDown="LeftMouseButtonDown_Delete" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
-                <fa:ImageAwesome Icon="Remove" Width="30" Height="30" VerticalAlignment="Center" Foreground="#a00000"/>
-                <TextBlock Text="Löschen" FontSize="25" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#a00000" />
+                <fa:ImageAwesome Icon="Remove" Width="25" Height="25" VerticalAlignment="Center" Foreground="#a00000"/>
+                <TextBlock Text="Löschen" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#a00000" />
             </StackPanel>
         </StackPanel>
 

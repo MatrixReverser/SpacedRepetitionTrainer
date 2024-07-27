@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:SpacedRepetitionTrainer"
         mc:Ignorable="d"
         Title="Spaced Repetition Trainer" Height="720" Width="1280">
@@ -11,15 +12,36 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!-- Überschrift -->
-        <TextBlock Name="AppTitle"
-                   Text="Vocabulary Set"
-                   FontWeight="Bold"
-                   Background="#c97000"
-                   Foreground="White"
-                   HorizontalAlignment="Stretch"
-                   VerticalAlignment="Top"
-                   Padding="10"
-                   FontSize="20"/>
+        <Grid Background="#c97000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="*" />
+                
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="AppTitle"
+                       Text="Vocabulary Set"
+                       FontWeight="Bold"
+                       Background="#c97000"
+                       Foreground="White"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Top"
+                       Padding="8"
+                       FontSize="20"
+                       Grid.Column="0"
+                       Grid.Row="0"/>
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" MouseLeftButtonDown="NewLanguagePack_Click" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
+                <fa:ImageAwesome Icon="Plus" Margin=" 5 12 5 0" Width="15" Height="15" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="White" />
+                <TextBlock Name="AddLanguagePackButton"
+                       Text="Neues Sprachpaket"
+                       FontWeight="Bold"
+                       Background="#c97000"
+                       Foreground="White"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Padding="10"
+                       FontSize="15"/>
+            </StackPanel>
+        </Grid>
 
         <!-- Container -->
         <Border Name = "ContentPanel"
