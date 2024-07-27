@@ -50,5 +50,54 @@ namespace SpacedRepetitionTrainer
                 }
             }
         }
+
+        /**
+         * Imports words froma CSV file. If append is true, the new words will be added to the 
+         * current vocabulary set. If false, rthe vocabulary set will be cleared before importing.
+         */
+        public void Import(string filename, bool append)
+        {
+            // delete old words if not in append mode
+            if (!append)
+            {
+                _vocabularySet.Words.Clear();
+            }
+
+            using(StreamReader reader = new StreamReader(filename))
+            {
+                string? line = reader.ReadLine();
+
+                while (line != null)
+                {
+                    Word word = BuildWord(line);
+                    _vocabularySet.Words.Add(word);
+
+                    line = reader.ReadLine();
+                }
+            }
+        }
+
+        /**
+         * Creates a Word from a single CSV line
+         */
+        private Word BuildWord(string csvLine)
+        {
+            Word word = new Word();
+            int startIndex = 3;
+
+            string[] columns = csvLine.Split(';');
+            if (columns.Length >= 4)
+            {
+                word.Level = int.Parse(columns[0]);
+                word.Timestamp = long.Parse(columns[1]);
+                word.Term = columns[2];
+
+                int length = columns.Length - startIndex;
+                word.Translation = new string[length];
+                Array.Copy(columns, startIndex, word.Translation, 0, length);
+            }
+
+            return word;
+        }
     }
 }

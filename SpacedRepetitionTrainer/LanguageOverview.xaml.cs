@@ -106,6 +106,7 @@ namespace SpacedRepetitionTrainer
         private void LeftMouseButtonDown_Export(object sender, MouseButtonEventArgs args)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Vokabeln in Datei exportieren";
             saveFileDialog.Filter = "CSV Datei (*.csv)|*.csv";
             saveFileDialog.FileName = _vocabularySet.Name + ".csv";
 
@@ -113,6 +114,40 @@ namespace SpacedRepetitionTrainer
             {
                 ImportExportHandler exporter = new ImportExportHandler(_vocabularySet);
                 exporter.Export(saveFileDialog.FileName);
+            }
+        }
+
+        /**
+         * Is called if the user wants to import words from a CSV file to the current language pack
+         */
+        private void LeftMouseButtonDown_Import(object sender, MouseButtonEventArgs args)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Vokabeln aus Datei importieren";
+            openFileDialog.Filter = "CSV Datei (*.csv)|*.csv";
+            openFileDialog.Multiselect = false;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                bool appendMode = false;
+
+                // ask if previous words should be overwritten or appended, if there are words in the current language pack
+                if (_vocabularySet.Words.Count > 0)
+                {
+                    MessageBoxResult result = MessageBox.Show(
+                        "Möchtest Du die vorhandenen Vokabeln überschreiben?\n(Falls Du nein wählst, werden die neuen Vokabeln\nan die existierenden Vokabeln angehängt.)",
+                        "Vokabeln überschreiben",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question
+                    );
+                    if (result == MessageBoxResult.No)
+                    {
+                        appendMode = true;
+                    }
+                }
+
+                ImportExportHandler importer = new ImportExportHandler(_vocabularySet); 
+                importer.Import(openFileDialog.FileName, appendMode);
             }
         }
 
