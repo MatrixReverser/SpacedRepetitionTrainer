@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -96,6 +97,22 @@ namespace SpacedRepetitionTrainer
             {
                 _vocabularySet.Delete();
                 HomeScreenRequested?.Invoke(this, string.Empty);
+            }
+        }
+
+        /**
+         * Is called if the user wants to export the current language pack to a CSV file
+         */
+        private void LeftMouseButtonDown_Export(object sender, MouseButtonEventArgs args)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV Datei (*.csv)|*.csv";
+            saveFileDialog.FileName = _vocabularySet.Name + ".csv";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                ImportExportHandler exporter = new ImportExportHandler(_vocabularySet);
+                exporter.Export(saveFileDialog.FileName);
             }
         }
 
