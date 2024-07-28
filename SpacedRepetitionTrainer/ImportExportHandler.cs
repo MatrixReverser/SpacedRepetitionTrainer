@@ -83,18 +83,27 @@ namespace SpacedRepetitionTrainer
         private Word BuildWord(string csvLine)
         {
             Word word = new Word();
-            int startIndex = 3;
-
+            
             string[] columns = csvLine.Split(';');
             if (columns.Length >= 4)
             {
                 word.Level = int.Parse(columns[0]);
                 word.Timestamp = long.Parse(columns[1]);
-                word.Term = columns[2];
+                word.Term = columns[2].Trim();
 
-                int length = columns.Length - startIndex;
-                word.Translation = new string[length];
-                Array.Copy(columns, startIndex, word.Translation, 0, length);
+                // only keep relevant trimmed words
+                List<string> trimmedTranslations = new List<string>();
+
+                for (int i=3; i<columns.Length; i++)
+                {
+                    string col = columns[i].Trim();
+                    if (col.Length > 0)
+                    {
+                        trimmedTranslations.Add(col);
+                    }
+                }
+
+                word.Translation = trimmedTranslations.ToArray();
             }
 
             return word;
