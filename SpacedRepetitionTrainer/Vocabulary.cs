@@ -13,7 +13,7 @@ using System.Windows.Data;
 
 namespace SpacedRepetitionTrainer
 {
-    class Word
+    public class Word
     {
         public string Term { get; set; }
         public string[] Translation { get; set; }
@@ -29,7 +29,7 @@ namespace SpacedRepetitionTrainer
         }
     }
 
-    class VocabularySet
+    public class VocabularySet
     {
         public static readonly string DATA_PATH = "SpacedRepetitionTrainer_Data";
 

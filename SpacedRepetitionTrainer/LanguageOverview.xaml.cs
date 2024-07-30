@@ -177,6 +177,16 @@ namespace SpacedRepetitionTrainer
                 }
             }
         }
+
+        public VocabularySet GetVocabularySet()
+        {
+            return _vocabularySet;
+        }
+
+        public string GetLanguageName()
+        {
+            return _language;
+        }
     }
 
     /** **************************************************************************
