@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Text;
 using System.Web;
 using System.Windows;
@@ -20,7 +21,8 @@ namespace SpacedRepetitionTrainer
     {
         private LanguageGrid _languageGrid;
         private LanguageOverview _languageOverview;
-        public NewLanguagePanel _newLanguagePanel;
+        private NewLanguagePanel _newLanguagePanel;
+        private LearnConfigPanel _learnPanel;
 
         public MainWindow()
         {
@@ -48,6 +50,7 @@ namespace SpacedRepetitionTrainer
         {
             _languageOverview = new LanguageOverview(language);
             _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
+            _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
             ContentPanel.Child = _languageOverview;
             AppTitle.Text = language;
         }
@@ -106,6 +109,7 @@ namespace SpacedRepetitionTrainer
                 _languageOverview = new LanguageOverview(name, description);
                 ContentPanel.Child = _languageOverview;
                 _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
+                _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
 
                 AppTitle.Text = name;
             }
@@ -114,6 +118,45 @@ namespace SpacedRepetitionTrainer
                 // if cancelled, just go back to the home screen
                 _newLanguagePanel.DialogClosed -= HandleCloseNewLanguageDialog;
                 InitLanguageComponents();
+            }
+        }
+
+        /**
+         * Is called if the user wants to start learning (config dialog is opened)
+         */
+        public void LanguageOverview_StartLearningSession(object? sender, string args)
+        {
+            _learnPanel = new LearnConfigPanel();
+            ContentPanel.Child = _learnPanel;
+            _learnPanel.ConfigConfirmed += ConfigConfirmed;
+        }
+
+        /**
+         * Is called if the config learn has been confirmed (either with Ok or with cancel)
+         */
+        private void ConfigConfirmed(object? sender, bool arg)
+        {
+            _learnPanel.ConfigConfirmed -= ConfigConfirmed;
+
+            if (!arg)
+            {
+                // config panel has been canceled
+                if (_languageOverview != null)
+                {
+                    _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
+                    _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
+                    ContentPanel.Child = _languageOverview;
+                    AppTitle.Text = _languageOverview.Name;
+                }
+                else
+                {
+                    InitLanguageComponents();
+                }
+            }
+            else
+            {
+                LearnConfig config = _learnPanel.GetConfiguration();
+                MessageBox.Show("MainWindow::ConfigConfirmed");
             }
         }
 

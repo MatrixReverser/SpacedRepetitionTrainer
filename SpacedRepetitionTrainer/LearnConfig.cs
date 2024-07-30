@@ -21,7 +21,7 @@ namespace SpacedRepetitionTrainer
         FROM_TRANSLATION
     }
 
-    internal class LearnConfig
+    public class LearnConfig
     {
         public int Count { get; set; }
         public LearnMode Mode { get; set; }

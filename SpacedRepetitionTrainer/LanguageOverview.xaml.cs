@@ -23,6 +23,7 @@ namespace SpacedRepetitionTrainer
     public partial class LanguageOverview : UserControl
     {
         public event EventHandler<string>? HomeScreenRequested;
+        public event EventHandler<string>? LearningSessionRequested;
 
         private string _language;
         private VocabularySet _vocabularySet;
@@ -98,6 +99,14 @@ namespace SpacedRepetitionTrainer
                 _vocabularySet.Delete();
                 HomeScreenRequested?.Invoke(this, string.Empty);
             }
+        }
+
+        /**
+         * Is called if the user wants to start learning
+         */
+        private void LeftMouseButtonDown_Learn(object sender, MouseButtonEventArgs args)
+        {
+            LearningSessionRequested?.Invoke(this, string.Empty);
         }
 
         /**
