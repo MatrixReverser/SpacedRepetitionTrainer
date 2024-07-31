@@ -41,6 +41,12 @@ namespace SpacedRepetitionTrainer
             InitDataGrid();
         }
 
+        public void Refresh()
+        {
+            VocabularyGrid.ItemsSource = null;
+            VocabularyGrid.ItemsSource = _vocabularySet.Words;
+        }
+
         private void InitInfoBlock()
         {
             Description.Text = _vocabularySet.Description;

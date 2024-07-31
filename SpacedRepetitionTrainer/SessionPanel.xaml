@@ -20,8 +20,12 @@
 
 
         <StackPanel>
-            <TextBlock Name="SubTitle" DockPanel.Dock="Top" TextAlignment="Center" Foreground="#f0f0f0" FontSize="25" FontWeight="Bold" Margin="0 20 0 60">Lernen</TextBlock>
-            <StackPanel Name="SubContent" />
+            <TextBlock Name="SubTitle" DockPanel.Dock="Top" TextAlignment="Center" Foreground="#f0f0f0" FontSize="25" FontWeight="Bold" Margin="0 20 0 40">Lernen</TextBlock>
+            <Border Name="SubContent" 
+                    Background="#303030"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="20"/>
         </StackPanel>
     </DockPanel>
 </UserControl>

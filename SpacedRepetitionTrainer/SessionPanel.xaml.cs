@@ -25,6 +25,7 @@ namespace SpacedRepetitionTrainer
         private VocabularySet _vocabularySet;
         private LearnConfig _learnConfig;
         private List<Word> _learnSet;
+        private List<Word> _failedSet;
         private int _learnCount;
 
         public SessionPanel(VocabularySet vocabularySet, LearnConfig config)
@@ -35,6 +36,7 @@ namespace SpacedRepetitionTrainer
             _vocabularySet = vocabularySet;
             _learnConfig = config;
             _learnSet = BuildLearnSet();
+            _failedSet = new List<Word>();
             ShuffleLearnSet();
 
             ShowNextWord();
@@ -151,15 +153,35 @@ namespace SpacedRepetitionTrainer
                 }
             }
 
+            UserControl? subPanel = null;
+
             switch (mode)
             {
                 case LearnMode.CARD:
+                    subPanel = new LearnCardPanel(_learnSet, direction, _failedSet);
+                    ((LearnCardPanel)subPanel).QuestionDone += QuestionDone;
                     break;
                 case LearnMode.MULTIPLE_CHOICE:
                     break;
                 case LearnMode.WRITE:
                     break;
             }
+
+            if (subPanel != null)
+            {
+                SubContent.Child = subPanel;
+            } else
+            {
+                ShowEndScreen();
+            }
+        }
+
+        /**
+         * Is called if a question has been answered
+         */
+        private void QuestionDone(object? sender, bool e)
+        {
+            ShowNextWord();
         }
 
         /**
@@ -169,6 +191,8 @@ namespace SpacedRepetitionTrainer
         {
             SubTitle.Text = "Du bist fertig für heute! :-)";
             CancelButton.Text = "Zurück";
+
+            _vocabularySet.Save();
         }
     }
 }

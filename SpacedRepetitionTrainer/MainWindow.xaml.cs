@@ -175,6 +175,7 @@ namespace SpacedRepetitionTrainer
             {
                 _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
                 _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
+                _languageOverview.Refresh();
                 ContentPanel.Child = _languageOverview;
                 AppTitle.Text = _languageOverview.GetLanguageName();
             }
