@@ -39,6 +39,21 @@ namespace SpacedRepetitionTrainer
             _failedSet = new List<Word>();
             ShuffleLearnSet();
 
+            int maxWordsToLearn = _learnSet.Count - 1;
+            if (_learnConfig.Count < _learnSet.Count)
+            {
+                maxWordsToLearn = _learnConfig.Count - 1;
+            }
+
+            barProgress.Maximum = maxWordsToLearn;
+            barProgress.Value = 0;
+
+            barSucceded.Maximum = maxWordsToLearn + 1;
+            barSucceded.Value = 0;
+
+            barFailed.Maximum = maxWordsToLearn + 1;
+            barFailed.Value = 0;
+
             ShowNextWord();
         }
 
@@ -111,6 +126,7 @@ namespace SpacedRepetitionTrainer
          */
         private void ShowNextWord()
         {
+            barProgress.Value = _learnCount;
             _learnCount++;
 
             if (_learnSet.Count == 0 || _learnCount > _learnConfig.Count)
@@ -181,6 +197,15 @@ namespace SpacedRepetitionTrainer
          */
         private void QuestionDone(object? sender, bool e)
         {
+            // correct or worng answer?
+            if (e)
+            {
+                barSucceded.Value++;
+            } else
+            {
+                barFailed.Value++;
+            }
+
             ShowNextWord();
         }
 
