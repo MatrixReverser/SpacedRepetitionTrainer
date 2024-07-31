@@ -14,15 +14,14 @@
 
             <StackPanel Orientation="Horizontal" Margin="10 20 10 20" MouseLeftButtonDown="LeftMouseButtonDown_Cancel" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
                 <fa:ImageAwesome Icon="StopCircle" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
-                <TextBlock Text="Abbrechen" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+                <TextBlock Name="CancelButton" Text="Abbrechen" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
             </StackPanel>
         </StackPanel>
 
 
         <StackPanel>
-            <TextBlock DockPanel.Dock="Top" TextAlignment="Center" Foreground="#f0f0f0" FontSize="25" FontWeight="Bold" Margin="0 20 0 20">Lern-Konfiguration</TextBlock>
-
-            
+            <TextBlock Name="SubTitle" DockPanel.Dock="Top" TextAlignment="Center" Foreground="#f0f0f0" FontSize="25" FontWeight="Bold" Margin="0 20 0 60">Lernen</TextBlock>
+            <StackPanel Name="SubContent" />
         </StackPanel>
     </DockPanel>
 </UserControl>

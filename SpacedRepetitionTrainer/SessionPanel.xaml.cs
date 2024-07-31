@@ -24,13 +24,20 @@ namespace SpacedRepetitionTrainer
 
         private VocabularySet _vocabularySet;
         private LearnConfig _learnConfig;
+        private List<Word> _learnSet;
+        private int _learnCount;
 
         public SessionPanel(VocabularySet vocabularySet, LearnConfig config)
         {
             InitializeComponent();
 
+            _learnCount = 0;
             _vocabularySet = vocabularySet;
             _learnConfig = config;
+            _learnSet = BuildLearnSet();
+            ShuffleLearnSet();
+
+            ShowNextWord();
         }
 
         /**
@@ -52,6 +59,116 @@ namespace SpacedRepetitionTrainer
         private void LeftMouseButtonDown_Cancel(object sender, MouseButtonEventArgs args)
         {
             CancelSessionEvent.Invoke(this, string.Empty);
+        }
+
+        /**
+         * Creates a list of vocabularies that should be learned in this session
+         */
+        private List<Word> BuildLearnSet()
+        {
+            List<Word> result = new List<Word>();
+
+            foreach (Word word in _vocabularySet.Words)
+            {
+                DateTime wordTime = DateTimeOffset.FromUnixTimeSeconds(word.Timestamp).DateTime;
+                DateTime currentDateTime = DateTime.UtcNow;
+                TimeSpan difference = currentDateTime - wordTime;
+                int timeDiff = (int)difference.TotalDays;
+
+                int repetitionInterval = word.GetRepetitionIntervall();
+
+                if (repetitionInterval <= timeDiff)
+                {
+                    result.Add(word);
+                }
+            }
+
+            return result;
+        }
+
+        /**
+         * Shuffles all words in the learn set
+         */
+        private void ShuffleLearnSet()
+        {
+            Random rng = new Random();
+            int n = _learnSet.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Word value = _learnSet[k];
+                _learnSet[k] = _learnSet[n];
+                _learnSet[n] = value;
+            }
+        }
+
+        /**
+         * Displays the next word or the end screen if no more words are in the learn set or if the maximum number
+         * of words to learn (for this session) has been reached
+         */
+        private void ShowNextWord()
+        {
+            _learnCount++;
+
+            if (_learnSet.Count == 0 || _learnCount > _learnConfig.Count)
+            {
+                ShowEndScreen();
+                return;
+            } 
+
+            // get the learn direction
+            LearnDirection direction = _learnConfig.Direction;
+            if (direction == LearnDirection.MIXED)
+            {
+                Random rand = new Random();
+                if (rand.Next(0, 2) == 0)
+                {
+                    direction = LearnDirection.TO_TRANSLATION;
+                }
+                else
+                {
+                    direction = LearnDirection.FROM_TRANSLATION;
+                }
+            }
+
+            // get the learn mode
+            LearnMode mode = _learnConfig.Mode;
+            if (mode == LearnMode.MIXED)
+            {
+                Random rand = new Random();
+                int randMode = rand.Next(0, 3);
+
+                if (randMode == 0)
+                {
+                    mode = LearnMode.CARD;
+                } else if (randMode == 1)
+                {
+                    mode = LearnMode.MULTIPLE_CHOICE;
+                }else
+                {
+                    mode = LearnMode.WRITE;
+                }
+            }
+
+            switch (mode)
+            {
+                case LearnMode.CARD:
+                    break;
+                case LearnMode.MULTIPLE_CHOICE:
+                    break;
+                case LearnMode.WRITE:
+                    break;
+            }
+        }
+
+        /**
+         * Shows the end screen
+         */
+        private void ShowEndScreen()
+        {
+            SubTitle.Text = "Du bist fertig für heute! :-)";
+            CancelButton.Text = "Zurück";
         }
     }
 }
