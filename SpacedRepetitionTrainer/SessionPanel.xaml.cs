@@ -231,7 +231,45 @@ namespace SpacedRepetitionTrainer
             SubTitle.Text = "Du bist fertig für heute! :-)";
             CancelButton.Text = "Zurück";
 
+            if (_failedSet.Count > 0)
+            {
+                AskForFixingErrors();
+            }
+
             _vocabularySet.Save();
+        }
+
+        /**
+         * Asks the user if he wants to fix error of the previous session
+         */
+        private void AskForFixingErrors()
+        {
+            string question = "Du hattest in Deiner letzten Lern-Session " + _failedSet.Count + " Fehler.\n\n Möchtest Du Deine Fehler korrigieren?";
+
+            MessageBoxResult result = MessageBox.Show(question, "Fehler korrigieren", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _learnSet = _failedSet;
+                _failedSet = new List<Word>();
+                ShuffleLearnSet();
+
+                int maxWordsToLearn = _learnSet.Count - 1;
+                if (_learnConfig.Count < _learnSet.Count)
+                {
+                    maxWordsToLearn = _learnConfig.Count - 1;
+                }
+
+                barProgress.Maximum = maxWordsToLearn;
+                barProgress.Value = 0;
+
+                barSucceded.Maximum = maxWordsToLearn + 1;
+                barSucceded.Value = 0;
+
+                barFailed.Maximum = maxWordsToLearn + 1;
+                barFailed.Value = 0;
+
+                ShowNextWord();
+            }
         }
     }
 }
