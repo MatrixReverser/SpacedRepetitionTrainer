@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SpacedRepetitionTrainer
 {
@@ -182,6 +183,15 @@ namespace SpacedRepetitionTrainer
                     ((LearnMultipleChoicePanel)subPanel).QuestionDone += QuestionDone;
                     break;
                 case LearnMode.WRITE:
+                    subPanel = new LearnWritePanel(_learnSet, direction, _failedSet);
+                    ((LearnWritePanel)subPanel).QuestionDone += QuestionDone;
+
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        ((LearnWritePanel)subPanel).TextAnswer.Focus();
+                        Keyboard.Focus(((LearnWritePanel)subPanel).TextAnswer);
+                    }), DispatcherPriority.Input);
+                    
                     break;
             }
 
