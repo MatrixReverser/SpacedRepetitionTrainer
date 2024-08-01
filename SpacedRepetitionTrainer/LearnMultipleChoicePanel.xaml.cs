@@ -72,11 +72,9 @@ namespace SpacedRepetitionTrainer
             if (answer == _correctAnswer)
             {
                 MarkSucceeded();
-                MessageBox.Show("Success");
             } else
             {
                 MarkFailed();
-                MessageBox.Show("Fail");
             }
         }
 
