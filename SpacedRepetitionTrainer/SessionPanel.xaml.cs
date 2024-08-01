@@ -178,6 +178,8 @@ namespace SpacedRepetitionTrainer
                     ((LearnCardPanel)subPanel).QuestionDone += QuestionDone;
                     break;
                 case LearnMode.MULTIPLE_CHOICE:
+                    subPanel = new LearnMultipleChoicePanel(_learnSet, direction, _failedSet, _vocabularySet.Words);
+                    ((LearnMultipleChoicePanel)subPanel).QuestionDone += QuestionDone;
                     break;
                 case LearnMode.WRITE:
                     break;
@@ -214,6 +216,8 @@ namespace SpacedRepetitionTrainer
          */
         private void ShowEndScreen()
         {
+            SubContent.Child = null;
+
             SubTitle.Text = "Du bist fertig für heute! :-)";
             CancelButton.Text = "Zurück";
 
