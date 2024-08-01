@@ -41,6 +41,12 @@ namespace SpacedRepetitionTrainer
             InitDataGrid();
         }
 
+        public void Refresh()
+        {
+            VocabularyGrid.ItemsSource = null;
+            VocabularyGrid.ItemsSource = _vocabularySet.Words;
+        }
+
         private void InitInfoBlock()
         {
             Description.Text = _vocabularySet.Description;
@@ -176,6 +182,16 @@ namespace SpacedRepetitionTrainer
                     _vocabularySet.Words.Remove(item);
                 }
             }
+        }
+
+        public VocabularySet GetVocabularySet()
+        {
+            return _vocabularySet;
+        }
+
+        public string GetLanguageName()
+        {
+            return _language;
         }
     }
 

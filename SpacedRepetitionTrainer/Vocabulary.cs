@@ -13,7 +13,7 @@ using System.Windows.Data;
 
 namespace SpacedRepetitionTrainer
 {
-    class Word
+    public class Word
     {
         public string Term { get; set; }
         public string[] Translation { get; set; }
@@ -27,9 +27,29 @@ namespace SpacedRepetitionTrainer
             Timestamp = 0;
             Level = 0;
         }
+
+        /**
+         * Returns the interval (in days) after which this word should be reeated
+         */
+        public int GetRepetitionIntervall()
+        {
+            switch (Level)
+            {
+                case 1: return 1; 
+                case 2: return 3; 
+                case 3: return 7; 
+                case 4: return 14; 
+                case 5: return 28; 
+                case 6: return 60; 
+                case 7: return 120;
+                case 8: return 240;
+                case 9: return 365;
+                default: return 0; 
+            }
+        }
     }
 
-    class VocabularySet
+    public class VocabularySet
     {
         public static readonly string DATA_PATH = "SpacedRepetitionTrainer_Data";
 

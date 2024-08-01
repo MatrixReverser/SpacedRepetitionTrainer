@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace SpacedRepetitionTrainer
 {
@@ -23,6 +24,7 @@ namespace SpacedRepetitionTrainer
         private LanguageOverview _languageOverview;
         private NewLanguagePanel _newLanguagePanel;
         private LearnConfigPanel _learnPanel;
+        private SessionPanel _sessionPanel;
 
         public MainWindow()
         {
@@ -146,7 +148,7 @@ namespace SpacedRepetitionTrainer
                     _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
                     _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
                     ContentPanel.Child = _languageOverview;
-                    AppTitle.Text = _languageOverview.Name;
+                    AppTitle.Text = _languageOverview.GetLanguageName();
                 }
                 else
                 {
@@ -156,7 +158,30 @@ namespace SpacedRepetitionTrainer
             else
             {
                 LearnConfig config = _learnPanel.GetConfiguration();
-                MessageBox.Show("MainWindow::ConfigConfirmed");
+                VocabularySet vocabularySet = _languageOverview.GetVocabularySet();
+
+                _sessionPanel = new SessionPanel(vocabularySet, config);
+                ContentPanel.Child = _sessionPanel;
+                _sessionPanel.CancelSessionEvent += CancelSession;
+            }
+        }
+
+        /**
+         * Is called if the session is cancelled or ends
+         */
+        private void CancelSession(object? sender, string args)
+        {
+            if (_languageOverview != null)
+            {
+                _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
+                _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
+                _languageOverview.Refresh();
+                ContentPanel.Child = _languageOverview;
+                AppTitle.Text = _languageOverview.GetLanguageName();
+            }
+            else
+            {
+                InitLanguageComponents();
             }
         }
 

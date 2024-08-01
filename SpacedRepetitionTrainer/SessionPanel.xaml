@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="SpacedRepetitionTrainer.SessionPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpacedRepetitionTrainer"
+             mc:Ignorable="d" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel Background="#303030">
+        <!-- Stack panel for the menu and info items -->
+        <StackPanel DockPanel.Dock="Left" Width="350" Background="#fec592" Orientation="Vertical">
+            
+
+            <StackPanel Orientation="Horizontal" Margin="10 20 10 20" MouseLeftButtonDown="LeftMouseButtonDown_Cancel" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
+                <fa:ImageAwesome Icon="StopCircle" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Name="CancelButton" Text="Abbrechen" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+            
+            <!-- number of vocabularies to go -->
+            <TextBlock Foreground="#202020" Margin="10" FontSize="14">Aktuelle Lern-Session:</TextBlock>
+            <ProgressBar Name="barProgress" Minimum="0" Maximum="100" Value="50" Foreground="#606060" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+            <TextBlock Foreground="#202020" Margin="10 20 10 10" FontSize="14">Richtige Antworten</TextBlock>
+            <ProgressBar Name="barSucceded" Minimum="0" Maximum="100" Value="50" Foreground="#00ff00" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+            <TextBlock Foreground="#202020" Margin="10 20 10 10" FontSize="14">Falsche Antworten</TextBlock>
+            <ProgressBar Name="barFailed" Minimum="0" Maximum="100" Value="50" Foreground="#ff0000" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+        </StackPanel>
+
+
+        <StackPanel>
+            <TextBlock Name="SubTitle" DockPanel.Dock="Top" TextAlignment="Center" Foreground="#f0f0f0" FontSize="25" FontWeight="Bold" Margin="0 20 0 40">Lernen</TextBlock>
+            <Border Name="SubContent" 
+                    Background="#303030"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="20"/>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
