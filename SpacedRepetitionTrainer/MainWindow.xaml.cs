@@ -80,7 +80,7 @@ namespace SpacedRepetitionTrainer
          */
         private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (ContentPanel.Child == _languageOverview)
+            if (_languageOverview != null)
             {
                 _languageOverview?.SaveCurrentVocabularySet();
             }
