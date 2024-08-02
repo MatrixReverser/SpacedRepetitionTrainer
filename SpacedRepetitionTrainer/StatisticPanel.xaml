@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="SpacedRepetitionTrainer.StatisticPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpacedRepetitionTrainer"
+             mc:Ignorable="d" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel Background="#303030">
+        <!-- Stack panel for the menu and info items -->
+        <StackPanel DockPanel.Dock="Left" Width="350" Background="#fec592" Orientation="Vertical">
+
+
+            <StackPanel Orientation="Horizontal" Margin="10 20 10 20" MouseLeftButtonDown="LeftMouseButtonDown_Cancel" MouseEnter="MouseEnter_General" MouseLeave="MouseLeave_General">
+                <fa:ImageAwesome Icon="Home" Width="25" Height="25" VerticalAlignment="Center" Foreground="#202020" />
+                <TextBlock Name="CancelButton" Text="Zurück" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="#202020" />
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel>
+            <TextBlock Name="SubTitle" DockPanel.Dock="Top" TextAlignment="Center" Foreground="#f0f0f0" FontSize="25" FontWeight="Bold" Margin="0 20 0 40">Vokabel-Statistik</TextBlock>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+            
+                <!-- Level 0 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="0">Level 0 (sofort):</TextBlock>
+                <ProgressBar Name="BarLevel0" Grid.Column="1" Grid.Row="0" Minimum="0" Maximum="100" Value="50" Foreground="#FF0000" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 1 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="1">Level 1 (nach 1 Tag):</TextBlock>
+                <ProgressBar Name="BarLevel1" Grid.Column="1" Grid.Row="1" Minimum="0" Maximum="100" Value="50" Foreground="#E61A00" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 2 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="2">Level 2 (nach 3 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel2" Grid.Column="1" Grid.Row="2" Minimum="0" Maximum="100" Value="50" Foreground="#CC3300" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 3 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="3">Level 3 (nach 7 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel3" Grid.Column="1" Grid.Row="3" Minimum="0" Maximum="100" Value="50" Foreground="#B34D00" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 4 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="4">Level 4 (nach 14 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel4" Grid.Column="1" Grid.Row="4" Minimum="0" Maximum="100" Value="50" Foreground="#996600" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 5 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="5">Level 5 (nach 28 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel5" Grid.Column="1" Grid.Row="5" Minimum="0" Maximum="100" Value="50" Foreground="#7F8000" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 6 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="6">Level 6 (nach 42 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel6" Grid.Column="1" Grid.Row="6" Minimum="0" Maximum="100" Value="50" Foreground="#669900" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 7 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="7">Level 7 (nach 90 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel7" Grid.Column="1" Grid.Row="7" Minimum="0" Maximum="100" Value="50" Foreground="#4CB200" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 8 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="8">Level 8 (nach 180 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel8" Grid.Column="1" Grid.Row="8" Minimum="0" Maximum="100" Value="50" Foreground="#32CC00" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+
+                <!-- Level 9 -->
+                <TextBlock TextAlignment="Left" Foreground="#f0f0f0" FontSize="20" Margin="20 0 20 10" Grid.Column="0" Grid.Row="9">Level 9 (nach 365 Tagen):</TextBlock>
+                <ProgressBar Name="BarLevel9" Grid.Column="1" Grid.Row="9" Minimum="0" Maximum="100" Value="50" Foreground="#19E600" Height="30" Width="300" Margin ="10 0 10 10" HorizontalAlignment="Left" />
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

@@ -53,6 +53,7 @@ namespace SpacedRepetitionTrainer
             _languageOverview = new LanguageOverview(language);
             _languageOverview.HomeScreenRequested += LanguageOverview_HomeScreenRequested;
             _languageOverview.LearningSessionRequested += LanguageOverview_StartLearningSession;
+            _languageOverview.StatisticRequested += LanguageOverview_ShowStatistic;
             ContentPanel.Child = _languageOverview;
             AppTitle.Text = language;
         }
@@ -131,6 +132,24 @@ namespace SpacedRepetitionTrainer
             _learnPanel = new LearnConfigPanel();
             ContentPanel.Child = _learnPanel;
             _learnPanel.ConfigConfirmed += ConfigConfirmed;
+        }
+
+        /**
+         * Is called to show the word statictis
+         */
+        public void LanguageOverview_ShowStatistic(object? sender , string args)
+        {
+            StatisticPanel statPanel = new StatisticPanel(_languageOverview.GetVocabularySet());
+            statPanel.BackEvent += LeaveStatisticPanel;
+            ContentPanel.Child = statPanel;
+        }
+
+        /**
+         * Leaves the statistic panel and requests the language overview again
+         */
+        public void LeaveStatisticPanel(object? sender , string args)
+        {
+            ContentPanel.Child = _languageOverview;
         }
 
         /**

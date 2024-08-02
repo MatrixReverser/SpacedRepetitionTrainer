@@ -24,6 +24,7 @@ namespace SpacedRepetitionTrainer
     {
         public event EventHandler<string>? HomeScreenRequested;
         public event EventHandler<string>? LearningSessionRequested;
+        public event EventHandler<string>? StatisticRequested;
 
         private string _language;
         private VocabularySet _vocabularySet;
@@ -164,6 +165,14 @@ namespace SpacedRepetitionTrainer
                 ImportExportHandler importer = new ImportExportHandler(_vocabularySet); 
                 importer.Import(openFileDialog.FileName, appendMode);
             }
+        }
+
+        /**
+         * Is called if the user wants to show the statistics
+         */
+        public void LeftMouseButtonDown_Statistic(object sender, MouseButtonEventArgs args)
+        {
+            StatisticRequested?.Invoke(this, string.Empty);
         }
 
         /** 
