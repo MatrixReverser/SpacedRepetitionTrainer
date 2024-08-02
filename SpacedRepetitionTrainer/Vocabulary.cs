@@ -40,9 +40,9 @@ namespace SpacedRepetitionTrainer
                 case 3: return 7; 
                 case 4: return 14; 
                 case 5: return 28; 
-                case 6: return 60; 
-                case 7: return 120;
-                case 8: return 240;
+                case 6: return 42; 
+                case 7: return 90;
+                case 8: return 180;
                 case 9: return 365;
                 default: return 0; 
             }
